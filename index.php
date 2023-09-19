@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8'); // Setando Charset
 session_start();
 if(isset($_SESSION['user_id'])) {
-    header("Location: dashboard.php");
+    header("Location: ./src/dashboard.php");
     exit;
 }
 $message = "";
@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifique no banco de dados ou onde quer que estejam as informações do usuário
     if($username === 'Siri' && $password === 'brenda1806') {
         $_SESSION['user_id'] = 1;
-        header("Location: dashboard.php");
+        header("Location: ./src/dashboard.php");
         exit;
     } else {
         $message = "Nome de usuário ou senha incorretos.";
