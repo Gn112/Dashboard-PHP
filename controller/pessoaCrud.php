@@ -8,4 +8,17 @@ function inserirRegistro($pdo, $nome, $email, $senha)
     $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
     return $stmt->execute();
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    if (inserirRegistro($pdo, $nome, $email, $senha)) {
+        $_SESSION['mensagem'] = 'Registro inserido com sucesso!';
+    } else {
+        $_SESSION['mensagem'] = 'Erro ao inserir o registro.';
+    }
+}
+
 ?>

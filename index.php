@@ -1,8 +1,9 @@
 <?php 
 header('Content-Type: text/html; charset=utf-8'); // Setando Charset
+
 session_start();
 if(isset($_SESSION['user_id'])) {
-    header("Location: ./src/dashboard.php");
+    header("Location: src/dashboard.php");
     exit;
 }
 $message = "";

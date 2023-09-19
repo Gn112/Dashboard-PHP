@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8'); // Setando Charset
 
-require('../connection/session.php');
+require('../controller/pessoaCRUD.php');
 ?>
 
 <!DOCTYPE html>

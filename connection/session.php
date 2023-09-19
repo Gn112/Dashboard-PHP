@@ -5,10 +5,10 @@ session_start();
 if(!isset($_SESSION['user_id']))
 {
     echo "Sem permissão para acesso a página<br>";
-    echo '<a href="index.php">Ir para página inicial</a>';
+    echo '<a href="../index.php">Ir para página inicial</a>';
     exit;
 }
 
 // Conexão com o banco de dados
-require('./db_con.php')
+require('db_con.php');
 ?>
