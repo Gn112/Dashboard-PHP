@@ -1,7 +1,7 @@
 <?php 
 header('Content-Type: text/html; charset=utf-8'); // Setando Charset
 
-require('fpdf/fpdf.php');
+require('../fpdf/fpdf.php');
 
 $pdf = new FPDF();
 $pdf -> AddPage();

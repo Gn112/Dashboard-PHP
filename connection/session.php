@@ -2,7 +2,7 @@
 session_start();
 
 // Teste se há ua sessão ativa
-if(!isset($_SESSION['user_id']))
+if(!isset($_SESSION['id']))
 {
     echo "Sem permissão para acesso a página<br>";
     echo '<a href="../index.php">Ir para página inicial</a>';

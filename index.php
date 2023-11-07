@@ -1,29 +1,45 @@
-<?php 
+<?php
 header('Content-Type: text/html; charset=utf-8'); // Setando Charset
+require('connection/db_con.php');
 
 session_start();
-if(isset($_SESSION['user_id'])) {
-    header("Location: src/dashboard.php");
-    exit;
+
+if (isset($_SESSION['id'])) {
+  header("Location: ./src/dashboard.php");
+  exit;
 }
+
 $message = "";
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifique o login do usuário (faça a validação adequada)
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    // Verifique no banco de dados ou onde quer que estejam as informações do usuário
-    if($username === 'Siri' && $password === 'brenda1806') {
-        $_SESSION['user_id'] = 1;
-        header("Location: ./src/dashboard.php");
-        exit;
-    } else {
-        $message = "Nome de usuário ou senha incorretos.";
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  // Obtem os dados do formulário
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  // Função para verificar o registro no do banco de dados
+  $sql = "SELECT * FROM usuarios WHERE email = :email AND senha = :senha";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':email', $email);
+  $stmt->bindParam(':senha', $password);
+  $stmt->execute();
+
+  // Verifica se há um registro correspondente
+  if ($stmt->rowCount() > 0) {
+    // O login foi bem-sucedido, redireciona para a página de boas-vindas
+    $_SESSION['id'] = 1;
+    header('Location: ./src/dashboard.php');
+    exit();
+  } else {
+    // O login falhou, exibe uma mensagem de erro
+    $message = 'Nome de usuário ou senha incorretos';
+    session_destroy();
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,8 +52,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1 class="text-2xl font-semibold mb-4">Login</h1>
     <form method="post">
       <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700">Usuário</label>
-        <input type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="text" id="email" name="email" class="mt-1 p-2 w-full border rounded-md">
       </div>
       <div class="mb-4">
         <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
